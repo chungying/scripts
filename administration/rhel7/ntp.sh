@@ -1,20 +1,20 @@
 # Setup NTPD
 
+# disable chronyd, conflict service to ntpd
+systemctl stop chronyd
+systemctl disable chronyd
+
 yum install -y ntp
 systemctl is-enabled ntpd
 systemctl enable ntpd
 
-# enable firewall rules for ntp
-firewall-cmd --add-service=ntp --permanent
-firewall-cmd --reload
-
-systemctl stop ntpd
-ntpdate pool.ntp.org
+#systemctl stop ntpd
+#ntpdate pool.ntp.org
 systemctl start ntpd
 systemctl status ntpd
 
-echo "wait 30 sec for time to synchronize"
-sleep 30
-ntpq -p
-date -R
+#echo "wait 30 sec for time to synchronize"
+#sleep 30
+#ntpq -p
+#date -R
 
